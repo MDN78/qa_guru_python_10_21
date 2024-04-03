@@ -7,7 +7,20 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pytest = "8.1.1"
+selene = "2.0.0rc9"
+allure-pytest = "2.13.5"
+python-dotenv = "1.0.1"
+requests = "2.31.0"
+appium-python-client = "4.0.0"
 
+[tool.pytest.ini_options]
+addopts = [
+    "--alluredir", "allure-results",
+    "--clean-alluredir",
+    "-s",
+    "-v",
+]
 
 [build-system]
 requires = ["poetry-core"]
