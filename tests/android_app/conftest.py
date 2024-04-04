@@ -32,8 +32,8 @@ def mobile_management():
     browser.config.driver_remote_url = 'http://hub.browserstack.com/wd/hub'
     browser.config.driver_options = options
 
-    browser.config.timeout = 10
-    # browser.config.timeout = project.config.TIMEOUT
+    # browser.config.timeout = 10
+    browser.config.timeout = project.config.TIMEOUT
 
     yield
 
