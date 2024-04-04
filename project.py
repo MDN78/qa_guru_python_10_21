@@ -9,7 +9,6 @@ load_dotenv()
 class Config(BaseSettings):
     USER_NAME: str = os.getenv('USER_NAME')
     ACCESS_KEY: str = os.getenv('ACCESS_KEY')
-    # REMOTE_URL: str = os.getenv('REMOTE_URL')
     TIMEOUT: float = os.getenv('TIMEOUT')
 
 
