@@ -1,6 +1,7 @@
 import pytest
 import project
 from utils import attach
+from appium import webdriver
 from selene import browser
 from allure_commons._allure import step
 from appium.options.android import UiAutomator2Options
@@ -29,10 +30,8 @@ def mobile_management():
                 "accessKey": project.config.ACCESS_KEY
             }
         })
-    browser.config.driver_remote_url = 'http://hub.browserstack.com/wd/hub'
-    browser.config.driver_options = options
 
-    # browser.config.timeout = 10
+    browser.config.driver = webdriver.Remote('http://hub.browserstack.com/wd/hub', options=options)
     browser.config.timeout = project.config.TIMEOUT
 
     yield
