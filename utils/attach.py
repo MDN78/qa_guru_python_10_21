@@ -24,7 +24,6 @@ def add_video(browser):
         f'https://api.browserstack.com/app-automate/sessions/{browser.driver.session_id}.json',
         auth=(user_name, access_key),
     ).json()
-    print(bstack_session)
     video_url = bstack_session['automation_session']['video_url']
 
     allure.attach(
@@ -36,4 +35,3 @@ def add_video(browser):
         name='video recording',
         attachment_type=allure.attachment_type.HTML,
     )
-

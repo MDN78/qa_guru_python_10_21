@@ -1,46 +1,38 @@
-import os
-import allure
 import pytest
+import project
 from utils import attach
 from selene import browser
-from dotenv import load_dotenv
 from allure_commons._allure import step
 from appium.options.android import UiAutomator2Options
 
 
-@pytest.fixture(scope='session', autouse=True)
-def load_env():
-    load_dotenv()
-
-
 @pytest.fixture(scope='function', autouse=True)
 def mobile_management():
-    user_name = os.getenv('USER_NAME')
-    access_key = os.getenv('ACCESS_KEY')
-    options = UiAutomator2Options().load_capabilities({
-        # Specify device and os_version for testing
-        "platformName": "android",
-        "platformVersion": "9.0",
-        "deviceName": "Google Pixel 3",
+    with step('Configurate options'):
+        options = UiAutomator2Options().load_capabilities({
+            # Specify device and os_version for testing
+            "platformName": "android",
+            "platformVersion": "9.0",
+            "deviceName": "Google Pixel 3",
 
-        # Set URL of the application under test
-        "app": "bs://sample.app",
+            # Set URL of the application under test
+            "app": "bs://sample.app",
 
-        # Set other BrowserStack capabilities
-        'bstack:options': {
-            "projectName": "First Python project",
-            "buildName": "browserstack-build-1",
-            "sessionName": "BStack first_test",
+            # Set other BrowserStack capabilities
+            'bstack:options': {
+                "projectName": "First Python project",
+                "buildName": "browserstack-build-1",
+                "sessionName": "BStack first_test",
 
-            # Set your access credentials
-            "userName": user_name,
-            "accessKey": access_key
-        }
-    })
-    browser.config.driver_remote_url = os.getenv('REMOTE_URL')
+                # Set your access credentials
+                "userName": project.config.USER_NAME,
+                "accessKey": project.config.ACCESS_KEY
+            }
+        })
+    browser.config.driver_remote_url = project.config.REMOTE_URL
     browser.config.driver_options = options
 
-    browser.config.timeout = float(os.getenv('TIMEOUT'))
+    browser.config.timeout = project.config.TIMEOUT
 
     yield
 
