@@ -23,8 +23,8 @@ addopts = [
     "-v",
 ]
 testpaths = [
-    "tests/android_app/",
-    "tests/ios_app/",
+    "tests/android_app",
+    "tests/ios_app",
 ]
 
 [build-system]
