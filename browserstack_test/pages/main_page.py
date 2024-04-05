@@ -16,6 +16,7 @@ class MainPage:
             browser.element((AppiumBy.ACCESSIBILITY_ID, "Text Input")).send_keys(query + '\n')
 
     def checking_result_ios(self, query):
+        with step(f'iOS: Checking request result by word {query}'):
             browser.element((AppiumBy.ACCESSIBILITY_ID, "Text Output")).should(have.text(query))
 
     def select_result_query(self):
