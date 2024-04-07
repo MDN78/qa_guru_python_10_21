@@ -5,20 +5,29 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 class MainPage:
 
-    def search_request(self, query):
-        with step(f'Search request by word {query}'):
-            browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
-            browser.element((AppiumBy.ID, "org.wikipedia.alpha:id/search_src_text")).type(query)
+    def wiki_start_page(self):
+        with step('First wellcome screen'):
+            browser.element((AppiumBy.ID, 'org.wikipedia:id/fragment_onboarding_forward_button')).click()
+        with step(f'Checking second page'):
+            browser.element((AppiumBy.ID, "org.wikipedia:id/view_onboarding_page_primary_text")).should(
+                have.text('New ways to explore'))
+        with step('Go to nex page'):
+            browser.element((AppiumBy.ID, 'org.wikipedia:id/fragment_onboarding_forward_button')).click()
+        with step(f'Checking third page'):
+            browser.element((AppiumBy.ID, "org.wikipedia:id/view_onboarding_page_primary_text")).should(
+                have.text('Reading lists with sync'))
+        with step('Go to nex page'):
+            browser.element((AppiumBy.ID, 'org.wikipedia:id/fragment_onboarding_forward_button')).click()
+        with step(f'Checking fourth page'):
+            browser.element((AppiumBy.ID, "org.wikipedia:id/view_onboarding_page_primary_text")).should(
+                have.text('Send anonymous data'))
 
-    def select_result_query(self):
-        with step('Select request result'):
-            browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title')).click()
-
-    def checking_result(self, query):
-        with step(f'Checking request result by word {query}'):
-            results = browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title'))
-            results.should(have.size_greater_than(0))
-            results.first.should(have.text(query))
+    def get_started_button(self):
+        with step('Go to main page'):
+            browser.element((AppiumBy.ID, 'org.wikipedia:id/fragment_onboarding_done_button')).click()
+        with step(f'Checking fourth page'):
+            browser.element((AppiumBy.ID, "org.wikipedia:id/view_announcement_text")).should(
+                have.text('Sync reading lists'))
 
 
 main_page = MainPage()
