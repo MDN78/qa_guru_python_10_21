@@ -1,34 +1,33 @@
 import pytest
-import project
-from utils import path
+from dotenv import load_dotenv
 from utils import attach
 from appium import webdriver
 from selene import browser
 from allure_commons._allure import step
-from appium.options.android import UiAutomator2Options
 
-DEFAULT_CONTEXT = 'local'
 
 def pytest_addoption(parser):
     parser.addoption('--context', default='local')
 
-# @pytest.fixture
-# def context(request):
-#     return request.config.getoption("--context")
+
+def pytest_configure(config):
+    context = config.getoption("--context")
+    env_file_path = f'.env.{context}'
+    load_dotenv(dotenv_path=env_file_path)
+
+
+@pytest.fixture
+def context(request):
+    return request.config.getoption("--context")
+
 
 @pytest.fixture(scope='function', autouse=True)
-def mobile_management(request):
+def mobile_management(context):
     with step('Configurate options'):
-        context = request.config.getoption('--context')
-        context = context if context != '' else DEFAULT_CONTEXT
-        if context == 'local':
-            options = UiAutomator2Options()
-            # options.set_capability('remote_url', project.config.URL)
-            options.set_capability("platformName", project.config.platformName)
-            options.set_capability("appWaitActivity", project.config.appWaitActivity)
-            options.set_capability("app", project.config.app)
-        browser.config.driver = webdriver.Remote(project.config.URL, options=options)
-        browser.config.timeout = project.config.TIMEOUT
+        from project import config_app
+        options = config_app.to_driver_options(context=context)
+        browser.config.driver = webdriver.Remote(options.get_capability('remote_url'), options=options)
+        browser.config.timeout = config_app.TIMEOUT
     #     options = UiAutomator2Options().load_capabilities({
     #         # Specify device and os_version for testing
     #         "platformName": "Android",
@@ -55,3 +54,5 @@ def mobile_management(request):
 
     with step('Close driver'):
         browser.quit()
+
+
