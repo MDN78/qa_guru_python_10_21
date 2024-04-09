@@ -1,6 +1,6 @@
 import os
-from dotenv import load_dotenv
 from utils import path
+from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 from appium.options.android import UiAutomator2Options
 
@@ -14,22 +14,22 @@ class Config(BaseSettings):
     deviceName: str = os.getenv('DEVICE_NAME')
     appWaitActivity: str = os.getenv('APP_WAIT_ACTIVITY')
     URL: str = os.getenv('URL')
-    app: str = path.relative_from_root('apk_file/org-wikipedia.apk')
+    app: str = os.getenv('APP')
     load_dotenv('.env.local_real')
 
     def to_driver_options(self, context):
         options = UiAutomator2Options()
-        if context == 'local':
+        if context == 'local_emulator':
             options.set_capability('remote_url', self.URL)
-            options.set_capability("platformName", self.platformName)
-            options.set_capability("appWaitActivity", self.appWaitActivity)
-            options.set_capability("app", self.app)
+            options.set_capability('platformName', self.platformName)
+            options.set_capability('appWaitActivity', self.appWaitActivity)
+            options.set_capability('app', path.relative_from_root(self.app))
         if context == 'bstack':
             options.set_capability('remote_url', self.URL)
             options.set_capability('deviceName', self.deviceName)
-            options.set_capability("platformName", self.platformName)
+            options.set_capability('platformName', self.platformName)
             options.set_capability('platformVersion', self.platform_version)
-            options.set_capability("app", self.app)
+            options.set_capability('app', self.app)
             options.set_capability(
                 'bstack:options',
                 {

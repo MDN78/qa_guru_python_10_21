@@ -7,7 +7,7 @@ from allure_commons._allure import step
 
 
 def pytest_addoption(parser):
-    parser.addoption('--context', default='local')
+    parser.addoption('--context', default='local_emulator')
 
 
 def pytest_configure(config):
@@ -28,18 +28,6 @@ def mobile_management(context):
         options = config_app.to_driver_options(context=context)
         browser.config.driver = webdriver.Remote(options.get_capability('remote_url'), options=options)
         browser.config.timeout = config_app.TIMEOUT
-    #     options = UiAutomator2Options().load_capabilities({
-    #         # Specify device and os_version for testing
-    #         "platformName": "Android",
-    #         "appWaitActivity": "org.wikipedia.*",
-    #         # Set URL of the application under test
-    #         "app": "D:\\QAGuru\\org-wikipedia.apk",
-    #         # "app": path.relative_from_root('apk_file/org-wikipedia.apk'),
-    #
-    #     })
-    #
-    # browser.config.driver = webdriver.Remote(project.config.URL, options=options)
-    # browser.config.timeout = project.config.TIMEOUT
 
     yield
 
@@ -54,5 +42,3 @@ def mobile_management(context):
 
     with step('Close driver'):
         browser.quit()
-
-
