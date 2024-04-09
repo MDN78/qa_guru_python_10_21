@@ -23,6 +23,9 @@ addopts = [
     "-s",
     "-v",
 ]
+testpaths = [
+    "tests/android_app",
+]
 
 [build-system]
 requires = ["poetry-core"]
