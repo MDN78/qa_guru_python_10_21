@@ -15,7 +15,7 @@ class Config(BaseSettings):
     appWaitActivity: str = os.getenv('APP_WAIT_ACTIVITY')
     URL: str = os.getenv('URL')
     app: str = os.getenv('APP')
-    load_dotenv('.env.local_real')
+    load_dotenv('.env.example')
 
     def to_driver_options(self, context):
         options = UiAutomator2Options()
@@ -40,6 +40,11 @@ class Config(BaseSettings):
                     "accessKey": self.ACCESS_KEY,
                 },
             )
+            if context == 'local_real':
+                options.set_capability('remote_url', self.remote_url)
+                options.set_capability('appWaitActivity', self.app_wait_activity)
+                options.set_capability('app', path.relative_from_root(self.app))
+
         return options
 
 

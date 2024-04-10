@@ -34,11 +34,12 @@ def mobile_management(context):
     with step('Add screenshot'):
         attach.add_screenshot(browser)
 
-    # with step('Add html'):
-    #     attach.add_html(browser)
-    #
-    # with step('Add video'):
-    #     attach.add_video(browser)
+    with step('Add html'):
+        attach.add_html(browser)
 
     with step('Close driver'):
         browser.quit()
+
+    if context == 'bstack':
+        with step('Add video'):
+            attach.add_video(browser)

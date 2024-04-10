@@ -1,4 +1,3 @@
-import os
 import allure
 import requests
 from allure_commons.types import AttachmentType
@@ -18,11 +17,10 @@ def add_html(browser):
 
 # video
 def add_video(browser):
-    user_name = os.getenv('USER_NAME')
-    access_key = os.getenv('ACCESS_KEY')
+    from project import config_app
     bstack_session = requests.get(
         f'https://api.browserstack.com/app-automate/sessions/{browser.driver.session_id}.json',
-        auth=(user_name, access_key),
+        auth=(config_app.USER_NAME, config_app.ACCESS_KEY),
     ).json()
     video_url = bstack_session['automation_session']['video_url']
 

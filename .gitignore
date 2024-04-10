@@ -6,6 +6,10 @@ __pycache__/
 .idea/
 .venv/
 .env
+.env.bstack
+.env.local_emulator
+.env.local_real
+
 #allure
 allure-results
 tests/allure-results
@@ -128,7 +132,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+.env.example
 .venv
 env/
 venv/
