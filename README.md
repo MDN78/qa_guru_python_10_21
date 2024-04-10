@@ -7,3 +7,12 @@
 - * Вынести данные (логин, пароль, урл браузерстека и т.д.) в .env с pydantic
 - Сделать сборку в дженкинсе
 
+## Для запуска теста:
+Preconditions: Необходимо предсоздание файлов `.env.local_emulator`, `.env.bstck`, `.env.local_real` и наполнить учетными данными  
+1. Запуск на эмуляторе командой `pytest --context=local_emulator `  
+2. Запуск на Browserstack:
+   - Залить APK файл на платформу [согласно инструкции](https://github.com/qa-guru/mobile-tests-13-py/tree/demo-selene-appium-with-browserstack-android#how-to-upload-your-own-version-of-application-to-browserstack)
+   - запуск командой терминала `pytest --context=bstack`
+3. Запуск на реальном устройстве командой `pytest --context=local_real`  
+4. Загрузка отчета Allure командой `allure serve`
+
