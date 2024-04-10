@@ -5,11 +5,10 @@ __pycache__/
 .pytest_cache*
 .idea/
 .venv/
-.env
 .env.bstack
 .env.local_emulator
 .env.local_real
-
+.env
 #allure
 allure-results
 tests/allure-results
