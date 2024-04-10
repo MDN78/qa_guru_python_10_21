@@ -1,8 +1,8 @@
 import pytest
-from dotenv import load_dotenv
 from utils import attach
-from appium import webdriver
 from selene import browser
+from appium import webdriver
+from dotenv import load_dotenv
 from allure_commons._allure import step
 
 
